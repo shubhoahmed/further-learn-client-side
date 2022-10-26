@@ -2,6 +2,7 @@ import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'fir
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import app from '../../firebase/firebase.confiq';
+import SocialLogin from './SocialLogin';
 
 const auth = getAuth(app);
 
@@ -23,6 +24,7 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 setSuccess(true);
+
             })
             .catch(error => {
                 console.error('error', error)
@@ -67,6 +69,8 @@ const Login = () => {
             {success && <p>Successfully login to the account</p>}
             <p className='mt-2'><small>New to this website? Please <Link to='/register' className='text-green-500'>Register</Link></small></p>
             <p><small>Forget Password? <button type="button" onClick={handleForgetPassword} className="btn btn-link">Reset Password</button></small></p>
+            <hr />
+            <SocialLogin></SocialLogin>
         </div>
     );
 };

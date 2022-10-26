@@ -23,8 +23,8 @@ const Header = () => {
                 <ul className="menu menu-horizontal p-0">
                     <li><Link to='/courses'>Courses</Link></li>
                     <li><Link to='/faq'>FAQ</Link></li>
-                    <li><Link to='blog'>Blog</Link></li>
-                    <li><Link to='toggle'>Toggle</Link></li>
+                    <li><Link to='/blog'>Blog</Link></li>
+                    <li><button>Toggle</button></li>
 
                 </ul>
             </div>

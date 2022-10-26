@@ -8,14 +8,7 @@ const Main = () => {
         <div>
             <Header></Header>
             <div>
-                <div>
-                    <div lg='3'>
-                        <SideNav></SideNav>
-                    </div>
-                    <div lg='9'>
-                        <Outlet></Outlet>
-                    </div>
-                </div>
+                <Outlet></Outlet>
             </div>
         </div>
     );
