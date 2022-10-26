@@ -1,44 +1,41 @@
-import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import app from '../../firebase/firebase.confiq';
-
-const auth = getAuth(app);
+import { AuthContext } from '../../context/AuthProvider';
 
 const Register = () => {
-    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState('');
+    const { createUser, updateUserProfile, } = useContext(AuthContext);
     const handleSubmit = event => {
         event.preventDefault();
-        setSuccess(false);
-
         const form = event.target;
         const fullname = form.fullname.value;
-        const photourl = form.photourl.value;
+        const photoURL = form.photoURL.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password, fullname, photourl)
-        createUserWithEmailAndPassword(auth, email, password)
+
+        createUser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                setSuccess(true);
+                setError('');
                 form.reset();
-                updateUserName(fullname, photourl);
+                handleUpdateUserProfile(fullname, photoURL);
             })
-            .catch(error => {
-                console.error('error', error);
-
-            })
+            .catch(e => {
+                console.error(e);
+                setError(e.message);
+            });
     }
 
-    const updateUserName = (fullname, photourl) => {
-        updateProfile(auth.currentUser, {
-            displayName: fullname, photoURL: photourl
-        })
-            .then(() => {
-                console.log('display name updated')
-            })
-            .catch(error => console.error(error))
+    const handleUpdateUserProfile = (name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
+        }
+
+        updateUserProfile(profile)
+            .then(() => { })
+            .catch(error => console.error(error));
     }
 
     return (
@@ -51,7 +48,7 @@ const Register = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput2" className="mb-2">Enter Photo URL</label>
-                    <input type="text" name='photourl' className="w-full px-5 py-2 border rounded-md" id="formGroupExampleInput2" placeholder="Photo URL" required />
+                    <input type="text" name='photoURL' className="w-full px-5 py-2 border rounded-md" id="formGroupExampleInput2" placeholder="Photo URL" required />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput3" className="mb-2">Enter Your Email</label>
@@ -63,7 +60,7 @@ const Register = () => {
                 </div>
                 <button className="py-2 w-full bg-green-400 rounded-md font-semibold" type="submit">Register</button>
             </form>
-            {success && <p>Successfully login to the account</p>}
+            {error && <p className='text-red-500'>{error}</p>}
             <p className='mt-2'><small className='text-center'>Already have an account? Please <Link to='/login' className='text-green-500'>Login</Link></small></p>
 
         </div>

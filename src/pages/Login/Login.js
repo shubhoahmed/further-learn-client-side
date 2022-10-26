@@ -1,56 +1,39 @@
-import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import app from '../../firebase/firebase.confiq';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 import SocialLogin from './SocialLogin';
 
-const auth = getAuth(app);
-
 const Login = () => {
-    const [success, setSuccess] = useState(false);
-    const [userEmail, setUserEmail] = useState('');
+    const [error, setError] = useState('');
+    const { signIn, setLoading } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const handleSubmit = event => {
         event.preventDefault();
-        setSuccess(false);
-
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password)
 
-        signInWithEmailAndPassword(auth, email, password)
+        signIn(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                setSuccess(true);
+                form.reset();
+                setError('');
+                navigate(from, { replace: true })
 
             })
             .catch(error => {
-                console.error('error', error)
+                console.error(error)
+                setError(error.message);
             })
-
-    }
-
-    const handleEmailBlur = event => {
-        const email = event.target.value;
-        setUserEmail(email);
-        console.log(email);
-    }
-
-    const handleForgetPassword = () => {
-        if (!userEmail) {
-            alert('Please enter your email address.')
-            return;
-        }
-        sendPasswordResetEmail(auth, userEmail)
-            .then(() => {
-                alert('Password Reset email sent. Please check your email.')
-            })
-            .catch(error => {
-                console.error(error);
+            .finally(() => {
+                setLoading(false);
             })
     }
+
 
     return (
         <div className='lg:w-1/2 w-full p-5 mx-auto'>
@@ -58,7 +41,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput" className="mb-2">Enter Your Email</label>
-                    <input onBlur={handleEmailBlur} type="email" name='email' className="w-full px-5 py-2 border rounded-md" id="formGroupExampleInput" placeholder="Your Email" required />
+                    <input type="email" name='email' className="w-full px-5 py-2 border rounded-md" id="formGroupExampleInput" placeholder="Your Email" required />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput2" className="form-label">Your Password</label>
@@ -66,9 +49,8 @@ const Login = () => {
                 </div>
                 <button className="py-2 w-full bg-green-400 rounded-md font-semibold" type="submit">Login</button>
             </form>
-            {success && <p>Successfully login to the account</p>}
+            {error && <p className='text-red-500'>{error}</p>}
             <p className='mt-2'><small>New to this website? Please <Link to='/register' className='text-green-500'>Register</Link></small></p>
-            <p><small>Forget Password? <button type="button" onClick={handleForgetPassword} className="btn btn-link">Reset Password</button></small></p>
             <hr />
             <SocialLogin></SocialLogin>
         </div>

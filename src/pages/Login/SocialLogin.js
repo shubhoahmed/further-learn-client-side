@@ -1,17 +1,20 @@
-import React from 'react';
-import { GoogleAuthProvider, signInWithPopup, getAuth, GithubAuthProvider } from "firebase/auth";
+import React, { useContext } from 'react';
+import { GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 import { useNavigate, useLocation } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 
 const SocialLogin = () => {
+    const { providerLogin, setLoading } = useContext(AuthContext);
+
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/'
 
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
-    const auth = getAuth();
+
     const handleSignInWithGoogle = () => {
-        signInWithPopup(auth, googleProvider)
+        providerLogin(googleProvider)
             .then(result => {
                 const user = result.user;
                 if (user) {
@@ -24,7 +27,7 @@ const SocialLogin = () => {
             })
     }
     const handleGithubSignIn = () => {
-        signInWithPopup(auth, githubProvider)
+        providerLogin(githubProvider)
             .then(result => {
                 const user = result.user;
                 if (user) {
