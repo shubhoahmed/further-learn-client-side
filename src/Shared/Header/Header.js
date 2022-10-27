@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [theme, setTheme] = useState(true);
+    console.log('user.auth', user)
     if (!user?.uid) {
 
     }
@@ -42,7 +44,12 @@ const Header = () => {
                     <li><Link to='/courses'>Courses</Link></li>
                     <li><Link to='/faq'>FAQ</Link></li>
                     <li><Link to='/blog'>Blog</Link></li>
-                    <li><button>Toggle</button></li>
+                    <li><div className="form-control">
+                        <label className="label cursor-pointer">
+                            <span className="label-text pr-3">{theme ? `Light` : `Dark`}</span>
+                            <input type="checkbox" className="toggle toggle-accent" checked={theme} onChange={() => setTheme(p => !p)} />
+                        </label>
+                    </div></li>
 
                 </ul>
             </div>
@@ -54,9 +61,10 @@ const Header = () => {
 
                     }
                     {
-                        user?.auth?.currentUser?.uid && <> <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                        user?.auth?.currentUser?.uid && <div className='relative group'> <label tabIndex={0} className="btn btn-ghost btn-circle avatar ">
                             <div className="w-10 rounded-full">
                                 {user?.auth?.currentUser?.photoURL ? < img src={user?.auth?.currentUser?.photoURL} alt='' /> : <img src='https://www.pngkey.com/png/detail/114-1149847_avatar-unknown-dp.png' alt='' />}
+
                             </div>
                         </label>  <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                 <li>
@@ -66,7 +74,11 @@ const Header = () => {
                                     </a>
                                 </li>
                                 <li><button onClick={handleLogOut}>Logout</button></li>
-                            </ul> </>
+                            </ul>
+                            <div className='absolute top-10 right-5 hidden group-hover:block px-3 py-2 '>
+                                <p>{user?.auth?.currentUser?.displayName}</p>
+                            </div>
+                        </div>
 
                     }
 
