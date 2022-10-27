@@ -26,18 +26,10 @@ const Header = () => {
                         <li><Link to='/faq'>FAQ</Link></li>
                         <li><Link to='/blog'>Blog</Link></li>
 
-                        {
-                            user?.auth?.currentUser?.uid ? <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                <div className="w-10 rounded-full">
-                                    {user?.auth?.currentUser?.photoURL ? < img src={user?.auth?.currentUser?.photoURL} alt='' /> : <img src='https://www.pngkey.com/png/detail/114-1149847_avatar-unknown-dp.png' alt='' />}
-                                </div>
-                            </label> :
-                                <Link to={'/login'} className="btn">Login</Link>
 
-                        }
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl"><img className='w-10 rounded-md mr-1' src={logo} alt="" /><span className='text-3xl font-semibold'>FurtherLearn </span></Link>
+                <Link to='/' className="btn btn-ghost normal-case text-xl"><img className='w-10 rounded-md mr-1' src={logo} alt="" /><span className='lg:text-3xl lg:font-semibold'>FurtherLearn </span></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
