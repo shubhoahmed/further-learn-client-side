@@ -8,7 +8,7 @@ const Home = () => {
                 <div className="max-w-md">
                     <h1 className="mb-5 text-5xl font-bold">FurtherLearn</h1>
                     <p className="mb-5">FurtherLearn is one of the most popular online platform for learning.</p>
-                    <button className="btn btn-primary">Get Started</button>
+
                 </div>
             </div>
         </div>
