@@ -1,5 +1,25 @@
-# Getting Started with Create React App
+# Website Name: FurtherLearn
+# Live Site Link:: https://further-learn.web.app/
+# Website's different features and functionality
+- A responsive Header with login button.
+- SideNav which contain course category with clickable link.
+- Checkout pages private protected route for get premium access.
+- Google singin with firebase login authentication.
+- Github singin with firebase authentication.
+- Email and passward login with firebase authentication.
+- Full responsive for mobile and desktop.
+# Tecnologies 
+- css component library daisyUI and tailwind framework.
+-  recreate-react-app 
+- react-router-dom
+- firebase authentication
+- firebase hosting
+- node express js for server
+- vercel for server deploy
 
+
+
+# Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
