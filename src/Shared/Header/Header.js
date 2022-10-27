@@ -6,9 +6,6 @@ import logo from '../../image/logo.png'
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
     const [theme, setTheme] = useState(true);
-    if (!user?.uid) {
-
-    }
     const handleLogOut = () => {
         logOut()
             .then(() => { })
