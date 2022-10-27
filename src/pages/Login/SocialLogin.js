@@ -41,8 +41,8 @@ const SocialLogin = () => {
     }
     return (
         <div>
-            <button className='py-2 border w-full my-3 rounded-md' onClick={handleSignInWithGoogle}>Login with Google</button>
-            <button className='py-2 border w-full rounded-md' onClick={handleGithubSignIn}>Login with Github</button>
+            <button className='py-2 font-bold bg-red-500 text-white border w-full my-3 rounded-md' onClick={handleSignInWithGoogle}>Login with Google</button>
+            <button className='py-2 font-bold bg-black text-white border w-full rounded-md' onClick={handleGithubSignIn}>Login with Github</button>
         </div>
     );
 };

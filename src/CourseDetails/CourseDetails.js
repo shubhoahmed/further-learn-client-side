@@ -20,7 +20,7 @@ const CourseDetails = () => {
                 <div className="card-body">
                     <h2 className="card-title">{title}</h2>
                     <p>{description}</p>
-                    <h3>$ {price}</h3>
+                    <h3> Premium fee: $ {price}</h3>
                     <div className="card-actions justify-start">
                         <button onClick={() => navigate(`/checkout/${id}`)} className="btn btn-primary">Get Premium Access</button>
                     </div>

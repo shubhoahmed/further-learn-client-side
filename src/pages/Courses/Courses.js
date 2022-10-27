@@ -5,7 +5,7 @@ import SideNav from '../../Shared/SideNav/SideNav';
 const Courses = () => {
     const [courses, setCourses] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/courses')
+        fetch('https://further-learn-server.vercel.app/courses')
             .then(res => res.json())
             .then(data => setCourses(data));
     }, [])

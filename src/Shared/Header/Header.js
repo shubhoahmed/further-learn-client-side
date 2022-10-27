@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import logo from '../../image/logo.png'
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
     const [theme, setTheme] = useState(true);
-    console.log('user.auth', user)
     if (!user?.uid) {
 
     }
@@ -15,7 +15,7 @@ const Header = () => {
             .catch(error => console.error(error))
     }
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -24,8 +24,8 @@ const Header = () => {
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li><Link to='/courses'>Courses</Link></li>
                         <li><Link to='/faq'>FAQ</Link></li>
-                        <li><Link to='blog'>Blog</Link></li>
-                        <li><Link to='toggle'>Toggle</Link></li>
+                        <li><Link to='/blog'>Blog</Link></li>
+
                         {
                             user?.auth?.currentUser?.uid ? <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
@@ -37,7 +37,7 @@ const Header = () => {
                         }
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl">FurtherLearn</Link>
+                <Link to='/' className="btn btn-ghost normal-case text-xl"><img className='w-10 rounded-md mr-1' src={logo} alt="" /><span className='text-3xl font-semibold'>FurtherLearn </span></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
@@ -57,7 +57,7 @@ const Header = () => {
 
                 <div className="dropdown dropdown-end">
                     {
-                        !user?.auth?.currentUser?.uid && <Link to={'/login'} className="btn">Login</Link>
+                        !user?.auth?.currentUser?.uid && <Link to={'/login'} className="bg-black py-2 px-5 font-bold text-white  lg:block rounded-md ">Login</Link>
 
                     }
                     {
