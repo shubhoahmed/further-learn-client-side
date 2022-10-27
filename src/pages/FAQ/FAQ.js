@@ -3,7 +3,9 @@ import React from 'react';
 const FAQ = () => {
     return (
         <div>
-            <label htmlFor="my-modal-6" className="btn modal-button text-center">Frequently Ask Question</label>
+            <div className='flex justify-center'>
+                <label htmlFor="my-modal-6" className="btn modal-button text-center">Frequently Ask Question</label>
+            </div>
             <input type="checkbox" id="my-modal-6" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
