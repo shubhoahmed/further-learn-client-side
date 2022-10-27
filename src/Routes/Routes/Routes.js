@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import CourseDetails from "../../CourseDetails/CourseDetails";
 import Main from "../../layouts/Main";
 import Blog from "../../pages/Blog/Blog";
+import Checkout from "../../pages/Checkout/Checkout";
 import Courses from "../../pages/Courses/Courses";
 import FAQ from "../../pages/FAQ/FAQ";
 import Home from "../../pages/Home/Home";
@@ -23,8 +24,13 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/courses/:id',
-                loader: () => fetch(''),
+                loader: ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`),
                 element: <CourseDetails></CourseDetails>
+            },
+            {
+                path: '/checkout/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`),
+                element: <Checkout></Checkout>
             },
             {
                 path: '/faq',
@@ -42,6 +48,12 @@ export const routes = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>
+            },
+            {
+                path: '*',
+                element: <div>
+                    <h1 className="text-center">This routes are not found:: 404 </h1>
+                </div>
             },
 
         ]
